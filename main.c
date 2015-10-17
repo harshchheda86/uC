@@ -5,8 +5,12 @@
 #include "device.h"
 
 
-int main(void) {
-
+int main(void)
+{
+	// Setup the device.
+	
+	// 
+	
 	while(TRUE)
 	{
 		// Processor Infinite loop here
