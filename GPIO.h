@@ -10,6 +10,7 @@
 
 #include"macros.h"
 #include"stdint.h"
+#include"device.h"
 
 /*
 *****************************************************************************************
@@ -17,10 +18,20 @@
 *****************************************************************************************
 */
 
+/*PF4 is SW1, PF0 is SW2, PF1 is Red LED, PF2 is Blue LED, PF3 is Green LED*/
+
+/*
+On this board
+*/
+
 #define DIR_INPUT 0
 #define DIR_OUTPUT 1
 #define ANALOG 0
 #define DIGITAL 1
+#define ENABLE 1
+#define DISABLE 0
+#define GPIO_MAX_PORT_BITS 8
+
 /*
 enum for listing out PORTs
 */
@@ -54,7 +65,7 @@ typedef struct RCGCGPIO_REG_STRUCT
 			uint32_t PortF_Clock_En  :BIT(5);
 			uint32_t Reserved        :BIT_RANGE(31,6);
 		};
-		uint32_t Data;
+		uint32_t Value;
 	};
 }RCGCGPIO_REG;
 

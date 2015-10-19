@@ -9,7 +9,10 @@ int main(void)
 {
 	// Setup the device.
 	
-	// 
+	//Setup GPIO
+	SetupGPIO();
+	
+	REG_WRITE(GPIO_PORTF_DATA_R, 0x2);
 	
 	while(TRUE)
 	{
