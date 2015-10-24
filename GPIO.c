@@ -25,7 +25,7 @@ void SetupGPIO()
     RCGCGPIO_REG        RcgcGpioReg         = {0}; // To enable clock to GPIO port
     
     // temporary code. Remove after testing.
-    static int exp_temp = 1;
+    static int exp_temp = 0;
     while(exp_temp);
     
     // Code below is to light an LED on Port PF1 
@@ -37,28 +37,28 @@ void SetupGPIO()
     RcgcGpioReg.Value = 0;
     
     // Set direction for all bits of Port F
-    GpioConfigReg.PortBit0Cfg = DIR_OUTPUT;
+    GpioConfigReg.PortBit1Cfg = DIR_OUTPUT;
     
     // Write the directions in DIR register
     REG_WRITE(GPIO_PORTF_DIR_R, GpioConfigReg.Value); // WRITE_REG() should be last after setting all bits for a given register.
     GpioConfigReg.Value = 0;
     
     // Disable Alternate function for all GPIO pins of PORT F
-    GpioConfigReg.PortBit0Cfg = DISABLE;
+    GpioConfigReg.PortBit1Cfg = DISABLE;
     
     // Write the AFSEL bits in register
     REG_WRITE(GPIO_PORTF_AFSEL_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
     
     // Disable Analog function
-    GpioConfigReg.PortBit0Cfg = DISABLE;
+    GpioConfigReg.PortBit1Cfg = DISABLE;
     
     // Write the analog mode register
     REG_WRITE(GPIO_PORTF_AMSEL_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
     
     // Enable Digital Port via DEN
-    GpioConfigReg.PortBit0Cfg = ENABLE;
+    GpioConfigReg.PortBit1Cfg = ENABLE;
     
     // Enable DEN bits
     REG_WRITE(GPIO_PORTF_DEN_R, GpioConfigReg.Value);
