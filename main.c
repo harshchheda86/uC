@@ -15,7 +15,9 @@ int main(void)
 	SetupGPIO();
 
 	RED_LED = 1;
-
+	
+	PwmInit();
+	
 	while(TRUE)
 	{
 		// Processor Infinite loop here

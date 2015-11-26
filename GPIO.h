@@ -201,9 +201,28 @@ typedef struct GPIOLOCK_REG_STRUCT
 		{
 			uint32_t LOCK; // magic number 0x4C4F434B unlocks the GPIOCR. Writing anything else locks GPIOCR.
 		};
-		uint32_t Data;
+		uint32_t Value;
 	};
 }GPIOLOCK_REG;
+
+typedef struct GPIOPCTL_REG_STRUCT
+{
+	union
+	{
+		struct
+		{
+			uint32_t PortMuxControl0	:BIT_RANGE(3,  0);
+			uint32_t PortMuxControl1	:BIT_RANGE(7,  4);
+			uint32_t PortMuxControl2	:BIT_RANGE(11, 8);
+			uint32_t PortMuxControl3	:BIT_RANGE(15,12);
+			uint32_t PortMuxControl4	:BIT_RANGE(19,16);
+			uint32_t PortMuxControl5	:BIT_RANGE(23,20);
+			uint32_t PortMuxControl6	:BIT_RANGE(27,24);
+			uint32_t PortMuxControl7	:BIT_RANGE(31,28);
+		};
+		uint32_t Value;
+	};
+}GPIOPCTL_REG;
 
 void SetupGPIO();
 
