@@ -12,13 +12,13 @@ void PwmInit()
     // Setup M1PWM7 / PF3 as PWM generator.
     
     { // 1. Enable PWM Clocks
-        REG_WRITE(SYSCTL_RCGCPWM_R,0x2); // generalize later
+        REG_WRITE(SYSCTL_RCGCPWM_R,SYSCTL_RCGCPWM_R1); // generalize later
     }
     {
         RCGC2_REG   Rcgc2Reg = {0};
         
         // 2. Enable clock to GPIO Module via RCGC2 register
-        Rcgc2Reg.GPIOF_Clock_En = 1;
+        Rcgc2Reg.GPIOF_Clock_En = ENABLE;
         REG_WRITE(SYSCTL_RCGC2_R, Rcgc2Reg.Value);
     }
     
@@ -28,6 +28,14 @@ void PwmInit()
         // 3. Select alternate function for PORT PF3.
         GpioAfsel_Reg.PortBit3Cfg = 1;
         REG_WRITE(GPIO_PORTF_AFSEL_R, GpioAfsel_Reg.Value);
+    }
+    
+    {
+        GPIOCONFIG_REG GpioDEN_Reg = {0};
+        
+        // 3. Select alternate function for PORT PF3.
+        GpioDEN_Reg.PortBit3Cfg = ENABLE;
+        REG_WRITE(GPIO_PORTF_DEN_R, GpioDEN_Reg.Value);
     }
     
     {
@@ -80,7 +88,7 @@ void PwmInit()
         
         // Enable PWM Module
         PWMxCtlReg.PWMxBlockEnable = 1;
-        PWMxCtlReg.DebugMode = 1;
+        PWMxCtlReg.DebugMode       = 1;
         REG_WRITE(PWM1_3_CTL_R,PWMxCtlReg.Value);
     }
     

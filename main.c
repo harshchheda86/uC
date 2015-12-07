@@ -14,7 +14,7 @@ int main(void)
 	//Setup GPIO
 	SetupGPIO();
 
-	RED_LED = 1;
+	// RED_LED = 1;
 	
 	PwmInit();
 	
