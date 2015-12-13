@@ -7,13 +7,22 @@
 
 #include "PWM.h"
 
+/*
+Function: PwmInit
+
+Parameters:
+    
+Note: Configures PWM module. GPIO specific configuration is done in SetupGPIO
+*/
 void PwmInit()
 {
     // Setup M1PWM7 / PF3 as PWM generator.
     
-    { // 1. Enable PWM Clocks
+    { 
+        // 1. Enable PWM Clocks for PWM generator 1
         REG_WRITE(SYSCTL_RCGCPWM_R,SYSCTL_RCGCPWM_R1); // generalize later
     }
+
     {
         RCGC2_REG   Rcgc2Reg = {0};
         
@@ -21,30 +30,8 @@ void PwmInit()
         Rcgc2Reg.GPIOF_Clock_En = ENABLE;
         REG_WRITE(SYSCTL_RCGC2_R, Rcgc2Reg.Value);
     }
-    
-    {
-        GPIOCONFIG_REG GpioAfsel_Reg = {0};
-        
-        // 3. Select alternate function for PORT PF3.
-        GpioAfsel_Reg.PortBit3Cfg = 1;
-        REG_WRITE(GPIO_PORTF_AFSEL_R, GpioAfsel_Reg.Value);
-    }
-    
-    {
-        GPIOCONFIG_REG GpioDEN_Reg = {0};
-        
-        // 3. Select alternate function for PORT PF3.
-        GpioDEN_Reg.PortBit3Cfg = ENABLE;
-        REG_WRITE(GPIO_PORTF_DEN_R, GpioDEN_Reg.Value);
-    }
-    
-    {
-        GPIOPCTL_REG   GpioPctlReg = {0};
-        
-        // 4. Select Port Mux Control N to GPIOPCTL register to send PWM signal to appropriate pins
-        GpioPctlReg.PortMuxControl3 = M1PWM7_ENCODING; // Use PortMuxCtrl(x) for xth bit in Port
-        REG_WRITE(GPIO_PORTF_PCTL_R, GpioPctlReg.Value);
-    }
+        // 3. Select alternate function for PF3, done in SetupGPIO()
+        // 4. Select Port Mux Control N to GPIOPCTL register to send PWM signal to appropriate pins  
     
     {
         RCC_REG RccReg = {0};

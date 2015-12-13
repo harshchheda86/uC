@@ -23,6 +23,8 @@
 
 #define GET_BIT_BAND_ALIAS(_addr,_bit) (PERIPHERAL_BIT_BAND_ALIAS_START + (((_addr - PERIPHERAL_BIT_BAND_START) << 5)) + (_bit << 2))
 
+#define RED_LED (*(volatile uint8_t	*)GET_BIT_BAND_ALIAS(GPIO_PORTF_DATA_REG_OFFSET,1))
+
 /*
 RCGCx register to enable clock to various peripherals
 */
