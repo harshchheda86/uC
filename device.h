@@ -15,15 +15,18 @@
 
 // Bit Band regions are useful when we want to modify one bit in peripheral register as an atomic operation.
 // This protects against accidental modification of other bits in the register.
-#define PERIPHERAL_BIT_BAND_START 0x40000000
-#define PERIPHERAL_BIT_BAND_END   0x400FFFFF
+#define PERIPHERAL_BIT_BAND_START (0x40000000)
+#define PERIPHERAL_BIT_BAND_END   (0x400FFFFF)
 
-#define PERIPHERAL_BIT_BAND_ALIAS_START 0x42000000
-#define PERIPHERAL_BIT_BAND_ALIAS_END   0x43FFFFFF
+#define PERIPHERAL_BIT_BAND_ALIAS_START (0x42000000)
+#define PERIPHERAL_BIT_BAND_ALIAS_END   (0x43FFFFFF)
 
 #define GET_BIT_BAND_ALIAS(_addr,_bit) (PERIPHERAL_BIT_BAND_ALIAS_START + (((_addr - PERIPHERAL_BIT_BAND_START) << 5)) + (_bit << 2))
 
 #define RED_LED (*(volatile uint8_t	*)GET_BIT_BAND_ALIAS(GPIO_PORTF_DATA_REG_OFFSET,1))
+
+#define NVIC_EXCEPTIONS_END	(16)
+#define NVIC_GET_IRQ_NO (_vectNo) (_vectNo - NVIC_EXCEPTIONS_END) // IRQ No is the vector number - 16 from Vector table on page 107
 
 /*
 RCGCx register to enable clock to various peripherals

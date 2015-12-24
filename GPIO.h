@@ -3,6 +3,8 @@
  *
  *  Created on: Oct 4, 2015
  *      Author: harsh
+
+ TODO: Add #define for Port bases and Offsets and use Base + Offset for programming. This is cleaner and most effective way of programming any peripheral.
  */
 
 #ifndef GPIO_H_

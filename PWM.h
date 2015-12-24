@@ -12,29 +12,45 @@
 
 #define M1PWM7_ENCODING (5)
 
+#define PWM_0_0_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_1_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_2_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_3_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_4_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_5_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_6_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_0_7_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_0_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_1_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_2_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_3_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_4_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_5_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_6_LOAD_VALUE (0x190) // 400 ticks
+#define PWM_1_7_LOAD_VALUE (0x190) // 400 ticks
+
 typedef enum PWM_MODULE_ENUM
 {
-    PWM_MODULE_0,
-    PWM_MODULE_1,
-    
-    // keep this as last
-    PWM_MODULE_MAX,
-}PWM_MODULE;
+    M0_PWM0 = 0x0,  // M0_PWM_0_A
+    M0_PWM1,        // M0_PWM_0_B Table 20.1 page 1233 of datasheet
+    M0_PWM2,
+    M0_PWM3,
+    M0_PWM4,
+    M0_PWM5,
+    M0_PWM6,
+    M0_PWM7,
+    M1_PWM0,
+    M1_PWM1,
+    M1_PWM2,
+    M1_PWM3,
+    M1_PWM4,
+    M1_PWM5,
+    M1_PWM6,
+    M1_PWM7,
 
-typedef enum PWM_INSTANCE_ENUM
-{
-    PWM_0,
-    PWM_1,
-    PWM_2,
-    PWM_3,
-    PWM_4,
-    PWM_5,
-    PWM_6,
-    PWM_7,
-    
-    // keep this as last
-    PWM_MAX,
-}PWM_INSTANCE;
+    // Keep this as last
+    M1_PWM_MAX,   
+}PWM_MODULE;
 
 typedef struct PWMxCTL_REG_ENUM
 {
@@ -109,5 +125,6 @@ typedef struct PWMENABLE_REG_STRUCT
 }PWMENABLE_REG;
 
 void PwmInit();
+void SetPwmDutyCycle(uint32_t DutyCycle, PWM_MODULE Module);
 
 #endif /* PWM_H_ */
