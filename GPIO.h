@@ -35,7 +35,7 @@ On this board
 #define GPIO_MAX_PORT_BITS 8
 
 #define GPIO_PORTF_DATA_REG_OFFSET (0x400253FC)
-
+#define GPIO_PORTB_DATA_REG_OFFSET (0x400053FC)
 /*
 enum for listing out PORTs
 */

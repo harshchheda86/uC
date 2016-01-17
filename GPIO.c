@@ -32,6 +32,7 @@ void SetupGPIO()
     
     // Enable clocks on all ports to be configured  
     RcgcGpioReg.PortF_Clock_En = ENABLE;
+    RcgcGpioReg.PortB_Clock_En = ENABLE; // Post B is used for SSI
     REG_WRITE(SYSCTL_RCGCGPIO_R, RcgcGpioReg.Value);
     REG_READ(SYSCTL_RCGCGPIO_R); // Read back the register for delay
     RcgcGpioReg.Value = 0;
@@ -44,6 +45,13 @@ void SetupGPIO()
     REG_WRITE(GPIO_PORTF_DIR_R, GpioConfigReg.Value); // WRITE_REG() should be last after setting all bits for a given register.
     GpioConfigReg.Value = 0;
     
+    GpioConfigReg.PortBit1Cfg = DIR_OUTPUT;
+    GpioConfigReg.PortBit2Cfg = DIR_OUTPUT;
+    GpioConfigReg.PortBit3Cfg = DIR_OUTPUT;
+
+    REG_WRITE(GPIO_PORTB_DIR_R, GpioConfigReg.Value); // WRITE_REG() should be last after setting all bits for a given register.
+    GpioConfigReg.Value = 0;
+
     // Disable Alternate function for PF1 and Enable it for PF3
     GpioConfigReg.PortBit1Cfg = DISABLE;
     GpioConfigReg.PortBit3Cfg = ENABLE;
@@ -53,17 +61,39 @@ void SetupGPIO()
     REG_WRITE(GPIO_PORTF_AFSEL_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
     
+    GpioConfigReg.PortBit1Cfg = DISABLE; // RST for LCD
+    GpioConfigReg.PortBit2Cfg = DISABLE; // Data / Command for LCD
+    GpioConfigReg.PortBit3Cfg = DISABLE; // Backlight LED for LCD
+    GpioConfigReg.PortBit4Cfg = ENABLE;  // SSI2CLK
+    GpioConfigReg.PortBit5Cfg = ENABLE;  // SSI2FSS
+    GpioConfigReg.PortBit7Cfg = ENABLE;  // SSI2Tx
+
+    REG_WRITE(GPIO_PORTB_AFSEL_R, GpioConfigReg.Value);
+    GpioConfigReg.Value = 0;
+
     // Write port mux control register to send M1PWM7 signal to PF3
     {
         GPIOPCTL_REG   GpioPctlReg = {0};
         
         GpioPctlReg.PortMuxControl3 = M1PWM7_ENCODING; // Use PortMuxCtrl(x) for xth bit in Port
         REG_WRITE(GPIO_PORTF_PCTL_R, GpioPctlReg.Value);
+        GpioPctlReg.Value           = 0;
+
+        GpioPctlReg.PortMuxControl4 = SSI2_ENCODING;
+        GpioPctlReg.PortMuxControl5 = SSI2_ENCODING;
+        GpioPctlReg.PortMuxControl7 = SSI2_ENCODING;
+
+        REG_WRITE(GPIO_PORTB_PCTL_R, GpioPctlReg.Value);
+        GpioPctlReg.Value           = 0;
     }
 
     // Enable weak pull up on PF4
     GpioConfigReg.PortBit4Cfg = ENABLE;
     REG_WRITE(GPIO_PORTF_PUR_R, GpioConfigReg.Value);
+    GpioConfigReg.Value = 0;
+
+    GpioConfigReg.PortBit4Cfg = ENABLE;
+    REG_WRITE(GPIO_PORTB_PUR_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
 
     // Disable Analog function
@@ -74,6 +104,9 @@ void SetupGPIO()
     REG_WRITE(GPIO_PORTF_AMSEL_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
     
+    // Disable Analog Functions of Port B
+    REG_WRITE(GPIO_PORTB_AMSEL_R, 0);
+
     // Enable Digital Port via DEN
     GpioConfigReg.PortBit1Cfg = ENABLE; // For RED LED PF1 digital output.
     GpioConfigReg.PortBit3Cfg = ENABLE; // For GREEN LED PF3 PWM
@@ -81,6 +114,17 @@ void SetupGPIO()
 
     // Enable DEN bits
     REG_WRITE(GPIO_PORTF_DEN_R, GpioConfigReg.Value);
+    GpioConfigReg.Value = 0;
+
+    GpioConfigReg.PortBit1Cfg = ENABLE;
+    GpioConfigReg.PortBit2Cfg = ENABLE;
+    GpioConfigReg.PortBit3Cfg = ENABLE;
+    GpioConfigReg.PortBit4Cfg = ENABLE;
+    GpioConfigReg.PortBit5Cfg = ENABLE;
+    GpioConfigReg.PortBit6Cfg = ENABLE;
+    GpioConfigReg.PortBit7Cfg = ENABLE;
+
+    REG_WRITE(GPIO_PORTB_DEN_R, GpioConfigReg.Value);
     GpioConfigReg.Value = 0;
 
     // Setting up interrupt to trigger on rising edge of PF4.

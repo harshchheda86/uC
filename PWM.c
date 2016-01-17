@@ -7,6 +7,22 @@
 
 #include "PWM.h"
 
+void Pwm_1_7_EnableDisable(BOOL Enable)
+{
+    PWMENABLE_REG   PwmEnReg = {0};
+
+    if(Enable == TRUE)
+    {
+        PwmEnReg.PWM7OutputEn = 1;
+    }
+    else
+    {
+        PwmEnReg.PWM7OutputEn = 0;
+    }
+
+    REG_WRITE(PWM1_ENABLE_R, PwmEnReg.Value);
+}
+
 void SetPwmDutyCycle(uint32_t DutyCycle, PWM_MODULE Module)
 {
     uint32_t CompareRegValue = 0;
@@ -169,10 +185,8 @@ void PwmInit()
     }
     
     {
-        PWMENABLE_REG   PwmEnReg = {0};
-        
-        PwmEnReg.PWM7OutputEn = 1;
-        REG_WRITE(PWM1_ENABLE_R, PwmEnReg.Value);
+        // Enable PWM 1_7
+        Pwm_1_7_EnableDisable(TRUE);
     }
     return;
 }

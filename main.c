@@ -17,6 +17,10 @@ int main(void)
 	
 	PwmInit();
 	
+	SSI_Init();
+
+	NOKIA_LCD_Init();
+
 	while(TRUE)
 	{
 		// Processor Infinite loop here

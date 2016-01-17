@@ -10,7 +10,6 @@
 
 #include "device.h"
 
-#define M1PWM7_ENCODING (5)
 
 #define PWM_0_0_LOAD_VALUE (0x190) // 400 ticks
 #define PWM_0_1_LOAD_VALUE (0x190) // 400 ticks

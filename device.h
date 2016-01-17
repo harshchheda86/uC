@@ -12,6 +12,8 @@
 #include "macros.h"
 #include "tm4c123gh6pm.h"
 #include "PWM.h"
+#include "SSI.h"
+#include "Nokia5110.h"
 
 // Bit Band regions are useful when we want to modify one bit in peripheral register as an atomic operation.
 // This protects against accidental modification of other bits in the register.
@@ -27,6 +29,9 @@
 
 #define NVIC_EXCEPTIONS_END	(16)
 #define NVIC_GET_IRQ_NO (_vectNo) (_vectNo - NVIC_EXCEPTIONS_END) // IRQ No is the vector number - 16 from Vector table on page 107
+
+#define M1PWM7_ENCODING (5)
+#define SSI2_ENCODING (2)
 
 /*
 RCGCx register to enable clock to various peripherals
