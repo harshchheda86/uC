@@ -7,7 +7,7 @@
 
 #include "device.h"
 
-void SSI_Init()
+void Ssi_Init()
 {
 	RCGCSSI_REG	RcgcSsiReg = {0};
 	SSICR0_REG  SsiCr0Reg  = {0};
@@ -45,4 +45,30 @@ void SSI_Init()
 	SsiCr1Reg.SSI_PortEnable = ENABLE;
 	REG_WRITE(SSI2_CR1_R, SsiCr1Reg.Value);
 	
+}
+
+BOOL IsSsiBusy()
+{
+	SSISR_REG SsiSrReg = {0};
+
+	// Read the SSI Status register
+	SsiSrReg.Value = REG_READ(SSI2_SR_R);
+
+	return (SsiSrReg.Busy);
+}
+
+BOOL IsSsiTransmitDone()
+{
+	SSISR_REG SsiSrReg = {0};
+
+	// Read the SSI Status register
+	SsiSrReg.Value = REG_READ(SSI2_SR_R);
+
+	return (SsiSrReg.TransmitFIFONotFull);
+}
+
+void SsiWriteData(uint8_t Data)
+{
+	// Write the Data in Data register
+	REG_WRITE(SSI2_DR_R , Data);
 }

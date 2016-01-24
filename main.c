@@ -11,15 +11,15 @@ int main(void)
 	// Setup the device.
 	
 	//Setup GPIO
-	SetupGPIO();
+	 SetupGPIO();
 
 	// RED_LED = 1;
 	
-	PwmInit();
+	PwmInit2();
 	
-	SSI_Init();
+	// Ssi_Init();
 
-	NOKIA_LCD_Init();
+	// NOKIA_LCD_Init();
 
 	while(TRUE)
 	{

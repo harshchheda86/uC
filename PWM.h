@@ -124,6 +124,7 @@ typedef struct PWMENABLE_REG_STRUCT
 }PWMENABLE_REG;
 
 void PwmInit();
+void PwmInit2();
 void SetPwmDutyCycle(uint32_t DutyCycle, PWM_MODULE Module);
 
 #endif /* PWM_H_ */

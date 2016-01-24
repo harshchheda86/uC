@@ -131,6 +131,9 @@ typedef struct SSICC_REG_STRUCT
 	};
 }SSICC_REG;
 
-void SSI_Init();
+void Ssi_Init();
+BOOL IsSsiBusy();
+void SsiWriteData(uint8_t Data);
+BOOL IsSsiTransmitDone();
 
 #endif /* SSI_H_ */
